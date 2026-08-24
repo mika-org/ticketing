@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --background: #f6f5fb;
+  --foreground: #151426;
+  --brand: #6846f4;
+  --brand-bright: #7c5cff;
+  --accent: #c9ff63;
+  --font-sans:
+    Inter, "Segoe UI Variable Text", "Segoe UI", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-display:
+    Inter, "Segoe UI Variable Display", "Segoe UI", ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 5% -5%,
+      rgba(201, 255, 99, 0.22),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 88% 2%,
+      rgba(124, 92, 255, 0.2),
+      transparent 34rem
+    ),
+    radial-gradient(
+      circle at 52% 100%,
+      rgba(72, 164, 255, 0.12),
+      transparent 36rem
+    ),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv02", "cv11";
+  min-height: 100vh;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a {
+  touch-action: manipulation;
+}
+::selection {
+  background: #d9ceff;
+  color: #151426;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background: #cfc9df;
+  background-clip: padding-box;
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(-1deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.24);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(124, 92, 255, 0);
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-[1.5rem] border border-white/80 bg-white/85 shadow-soft backdrop-blur-xl;
+  }
+  .input {
+    @apply block min-h-12 w-full rounded-2xl border-stone-200/80 bg-white/90 px-4 py-3 text-sm text-ink shadow-sm outline-none transition placeholder:text-stone-400 hover:border-moss-100 focus:border-moss-500 focus:ring-4 focus:ring-moss-100;
+  }
+  .label {
+    @apply mb-2 block text-[13px] font-bold tracking-[-0.01em] text-stone-700;
+  }
+  .button-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-moss-600 px-5 py-2.5 text-sm font-bold text-white shadow-glow transition duration-200 hover:-translate-y-0.5 hover:bg-moss-700 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-moss-100 disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-50;
+  }
+  .button-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-stone-200/90 bg-white/90 px-5 py-2.5 text-sm font-bold text-stone-700 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-moss-100 hover:bg-moss-50 hover:text-moss-700 focus:outline-none focus:ring-4 focus:ring-moss-100 disabled:opacity-50;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full border px-3 py-1.5 text-[11px] font-extrabold capitalize tracking-wide;
+  }
+  .glass {
+    @apply border border-white/70 bg-white/65 shadow-soft backdrop-blur-2xl;
+  }
+  .dot-grid {
+    background-image: radial-gradient(
+      rgba(21, 20, 38, 0.14) 1px,
+      transparent 1px
+    );
+    background-size: 18px 18px;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-moss-100 bg-moss-50 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-moss-700;
+  }
+  .icon-tile {
+    @apply grid size-11 shrink-0 place-items-center rounded-2xl bg-moss-50 text-moss-700 ring-1 ring-inset ring-moss-100;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .float-soft {
+    animation: float-soft 5s ease-in-out infinite;
+  }
+  .pulse-ring {
+    animation: pulse-ring 2s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 640px) {
+  .surface {
+    @apply rounded-[1.25rem];
+  }
+  .button-primary,
+  .button-secondary {
+    @apply min-h-12;
+  }
+}
+
+.surface table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.surface thead {
+  background: rgba(243, 240, 255, 0.72);
+}
+.surface th {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #78716c;
+}
+.surface tbody tr {
+  transition: background-color 0.2s ease;
+}
+.surface tbody tr:hover {
+  background: rgba(243, 240, 255, 0.55);
+}
+.surface td {
+  border-color: rgba(231, 229, 228, 0.65);
+}
+
+@supports (view-transition-name: none) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.25s;
+  }
+}
