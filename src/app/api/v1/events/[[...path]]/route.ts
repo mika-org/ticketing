@@ -1,4 +1,3 @@
-import { hash } from "@node-rs/argon2";
 import { Prisma } from "@prisma/client";
 import { NextRequest } from "next/server";
 import { z } from "zod";
@@ -18,6 +17,7 @@ import {
   parse_event_report_range,
 } from "@/lib/server/event_reports";
 import { cancel_active_xendit_payment_requests } from "@/lib/server/payments";
+import { hash_password } from "@/lib/server/password";
 import { prisma } from "@/lib/server/prisma";
 import { issue_tickets, public_tickets } from "@/lib/server/tickets";
 import {
@@ -493,7 +493,7 @@ async function create_ticket_type(
       maxPerOrder: input.max_per_order,
       visibility: input.visibility,
       accessCodeHash: input.access_code
-        ? await hash(input.access_code)
+        ? await hash_password(input.access_code)
         : undefined,
       sortOrder: input.sort_order,
       isActive: input.is_active,
@@ -531,7 +531,7 @@ async function update_ticket_type(
       maxPerOrder: input.max_per_order,
       visibility: input.visibility,
       accessCodeHash: input.access_code
-        ? await hash(input.access_code)
+        ? await hash_password(input.access_code)
         : undefined,
       sortOrder: input.sort_order,
       isActive: input.is_active,
